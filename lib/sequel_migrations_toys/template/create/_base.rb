@@ -7,22 +7,25 @@ module SequelMigrationsToys
 			class Base < Template::Base
 				include Toys::Template
 
-				private
+				# private
 
-				def create_migration_file(name, content = nil)
-					require_relative '../_migration_file'
+				## Common code for migrations creation
+				module CommonMigrationsCreateCode
+					private
 
-					file = MigrationFile.new name: name, content: content
+					def create_migration_file(name, content = nil)
+						file = migration_file_class.new(name: name, content: content)
 
-					file.generate
-				end
+						file.generate
+					end
 
-				def render_template(filename)
-					require 'erb'
-					filename = "#{db_migrations_dir}/templates/#{filename}.rb.erb"
-					renderer = ERB.new File.read filename
-					renderer.filename = filename
-					renderer.result binding
+					def render_template(filename)
+						require 'erb'
+						filename = "#{db_migrations_dir}/templates/#{filename}.rb.erb"
+						renderer = ERB.new File.read filename
+						renderer.filename = filename
+						renderer.result binding
+					end
 				end
 			end
 		end

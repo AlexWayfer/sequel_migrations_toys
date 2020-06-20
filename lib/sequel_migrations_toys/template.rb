@@ -7,43 +7,32 @@ module SequelMigrationsToys
 	class Template
 		include Toys::Template
 
-		attr_reader :application
+		attr_reader :db_connection_proc
 
-		def initialize(application:)
-			@application = application
+		def initialize(db_connection_proc:)
+			@db_connection_proc = db_connection_proc
 		end
 
 		on_expand do |template|
-			tool :migrations do
-				require_relative 'template/_base'
+			tool :database do
+				tool :migrations do
+					require_relative 'template/_base'
 
-				require_relative 'template/create'
-				expand Template::Create, application: template.application
+					subtool_apply do
+						include Base::CommonMigrationsCode
+					end
 
-				require_relative 'template/list'
-				expand Template::List
+					%w[Create List Check Enable Disable Reversion Run Rollback]
+						.each do |template_name|
+							require_relative "template/#{template_name.downcase}"
+							expand Template.const_get(template_name, false),
+								db_connection_proc: template.db_connection_proc
+						end
+				end
 
-				require_relative 'template/check'
-				expand Template::Check
-
-				require_relative 'template/enable'
-				expand Template::Enable
-
-				require_relative 'template/disable'
-				expand Template::Disable
-
-				require_relative 'template/reversion'
-				expand Template::Reversion
-
-				require_relative 'template/run'
-				expand Template::Run, application: template.application
-
-				require_relative 'template/rollback'
-				expand Template::Rollback
+				alias_tool :migrate, 'migrations:run'
+				alias_tool :migrations, 'migrations:list'
 			end
-
-			alias_tool :migrate, 'migrations:run'
-			alias_tool :migrations, 'migrations:list'
 		end
 	end
 end

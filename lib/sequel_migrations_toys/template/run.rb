@@ -4,8 +4,10 @@ module SequelMigrationsToys
 	class Template
 		## Define toys for run migrations
 		class Run < Base
-			on_expand do
+			on_expand do |template|
 				tool :run do
+					include :exec, exit_on_nonzero_status: true
+
 					desc 'Run migrations'
 
 					flag :target, '-t', '--target=VERSION'
@@ -14,17 +16,17 @@ module SequelMigrationsToys
 
 					SEQUEL_EXTENSIONS = %i[migration inflector].freeze
 
-					def run
-						# TODO: Require PSQL toys
-						exec_tool 'db:dump' unless ENV['SKIP_DB_DUMP']
+					to_run do
+						## PSQL tools or analog are required
+						exec_tool 'database:dump' unless ENV['SKIP_DB_DUMP']
 
 						## https://github.com/jeremyevans/sequel/issues/1182#issuecomment-217696754
 						require 'sequel'
 						SEQUEL_EXTENSIONS.each { |extension| Sequel.extension extension }
 
-						require_application_config
-
-						Sequel::Migrator.run db_connection, db_migrations_dir, options
+						Sequel::Migrator.run(
+							template.db_connection, db_migrations_dir, options
+						)
 					end
 
 					private
@@ -51,9 +53,7 @@ module SequelMigrationsToys
 					end
 
 					def find_target_file_version
-						require_relative '_migration_file'
-
-						file = MigrationFile.find target, disabled: false
+						file = migration_file_class.find target, disabled: false
 
 						abort 'Migration with this version not found' if file.nil?
 

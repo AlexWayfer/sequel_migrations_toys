@@ -3,26 +3,25 @@
 module SequelMigrationsToys
 	class Template
 		## Define toys for migrations check
-		class Check
-			include Toys::Template
-
-			on_expand do
+		class Check < Base
+			on_expand do |template|
 				tool :check do
 					desc 'Check applied migrations'
 
-					def run
-						require_relative '_migration_file'
+					to_run do
+						migration_file_class = migration_file_class(template.db_connection)
 
-						if MigrationFile.applied_not_existing.any?
+						if migration_file_class.applied_not_existing.any?
 							puts 'Applied, but not existing'
-							MigrationFile.applied_not_existing.each(&:print)
-							puts "\n" if MigrationFile.existing_not_applied.any?
+							migration_file_class.applied_not_existing.each(&:print)
+
+							puts "\n" if migration_file_class.existing_not_applied.any?
 						end
 
-						return unless MigrationFile.existing_not_applied.any?
+						return if migration_file_class.existing_not_applied.empty?
 
 						puts 'Existing, but not applied'
-						MigrationFile.existing_not_applied.each(&:print)
+						migration_file_class.existing_not_applied.each(&:print)
 					end
 				end
 			end

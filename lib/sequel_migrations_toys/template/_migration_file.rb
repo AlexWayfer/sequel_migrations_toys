@@ -31,9 +31,10 @@ module SequelMigrationsToys
 		class << self
 			include Memery
 
-			def database_schema_migrations
-				@database_schema_migrations ||=
-					db_connection[:schema_migrations].select_map(:filename)
+			attr_accessor :root_dir, :db_migrations_dir, :db_connection
+
+			memoize def database_schema_migrations
+				db_connection[:schema_migrations].select_map(:filename)
 			end
 
 			def find(query, only_one: true, enabled: true, disabled: true)
@@ -182,11 +183,11 @@ module SequelMigrationsToys
 
 		def new_filename
 			new_basename = "#{version}_#{name}.rb#{DISABLING_EXT if disabled}"
-			"#{db_migrations_dir}/#{new_basename}"
+			"#{self.class.db_migrations_dir}/#{new_basename}"
 		end
 
 		def relative_filename
-			new_filename.gsub("#{context_directory}/", '')
+			new_filename.gsub("#{self.class.root_dir}/", '')
 		end
 	end
 end

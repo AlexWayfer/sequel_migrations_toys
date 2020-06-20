@@ -25,12 +25,14 @@ gem install sequel_migrations_toys
 ## Usage
 
 ```ruby
-# Namespace is recommended
-tool :database do
-  require 'sequel_migrations_toys'
-  expand SequelMigrationsToys::Template, application: MyProject::Application
-end
-# Aliases are optional, but handful
+require 'sequel_migrations_toys'
+expand SequelMigrationsToys::Template, db_connection_proc: (proc do
+  require "#{context_directory}/config/config"
+  MyProject::Application.db_connection
+end)
+
+# `database` namespace created
+# aliases are optional, but handful
 alias_tool :db, :database
 ```
 

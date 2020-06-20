@@ -3,17 +3,15 @@
 module SequelMigrationsToys
 	class Template
 		## Define toys for migrations list
-		class List
-			include Toys::Template
-
-			on_expand do
+		class List < Base
+			on_expand do |template|
 				tool :list do
 					desc 'Show all migrations'
 
-					def run
-						require_relative '_migration_file'
-
-						files = MigrationFile.find '*', only_one: false
+					to_run do
+						files =
+							migration_file_class(template.db_connection)
+								.find '*', only_one: false
 						files.each(&:print)
 					end
 				end

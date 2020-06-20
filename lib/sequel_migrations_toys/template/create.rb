@@ -3,13 +3,18 @@
 module SequelMigrationsToys
 	class Template
 		## Define toys for Sequel migrations creation
-		class Create < Base
+		class Create < Template::Base
 			on_expand do |template|
 				tool :create do
 					require_relative 'create/_base'
 
+					subtool_apply do
+						include Create::Base::CommonMigrationsCreateCode
+					end
+
 					require_relative 'create/regular'
-					expand Create::Regular, application: template.application
+					expand Create::Regular,
+						db_connection_proc: template.db_connection_proc
 				end
 
 				alias_tool :create, 'create:regular'

@@ -3,9 +3,7 @@
 module SequelMigrationsToys
 	class Template
 		## Define toys for migrations enable
-		class Enable
-			include Toys::Template
-
+		class Enable < Base
 			on_expand do
 				tool :enable do
 					desc 'Enable migration'
@@ -13,9 +11,7 @@ module SequelMigrationsToys
 					required_arg :filename
 
 					def run
-						require_relative '_migration_file'
-
-						file = MigrationFile.find filename
+						file = migration_file_class.find filename
 						file.enable
 					end
 				end
