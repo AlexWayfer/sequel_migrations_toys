@@ -6,9 +6,10 @@ module SequelMigrationsToys
 		class Base
 			include Toys::Template
 
-			attr_reader :db_connection_proc
+			attr_reader :db_migrations_dir, :db_connection_proc
 
-			def initialize(db_connection_proc:)
+			def initialize(db_migrations_dir:, db_connection_proc:)
+				@db_migrations_dir = db_migrations_dir
 				@db_connection_proc = db_connection_proc
 			end
 
@@ -28,22 +29,17 @@ module SequelMigrationsToys
 			CommonMigrationsCode = Module.new do
 				private
 
-				def migration_file_class(db_connection = nil)
+				def migration_file_class(db_migrations_dir, db_connection = nil)
 					return @migration_file_class if defined? @migration_file_class
 
 					require "#{__dir__}/_migration_file"
 
 					context_directory = self.context_directory
-					db_migrations_dir = self.db_migrations_dir
 					@migration_file_class = Class.new(MigrationFile) do
-						self.root_dir = context_directory
-						self.db_migrations_dir = db_migrations_dir
+						self.root_dir = File.expand_path context_directory
+						self.db_migrations_dir = File.expand_path db_migrations_dir
 						self.db_connection = db_connection
 					end
-				end
-
-				def db_migrations_dir
-					"#{context_directory}/db/migrations"
 				end
 			end
 		end

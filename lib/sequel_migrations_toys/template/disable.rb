@@ -4,14 +4,14 @@ module SequelMigrationsToys
 	class Template
 		## Define toys for migrations disable
 		class Disable < Base
-			on_expand do
+			on_expand do |template|
 				tool :disable do
 					desc 'Disable migration'
 
 					required_arg :filename
 
-					def run
-						file = migration_file_class.find filename
+					to_run do
+						file = migration_file_class(template.db_migrations_dir).find filename
 						file.disable
 					end
 				end

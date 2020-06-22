@@ -7,9 +7,10 @@ module SequelMigrationsToys
 	class Template
 		include Toys::Template
 
-		attr_reader :db_connection_proc
+		attr_reader :db_migrations_dir, :db_connection_proc
 
-		def initialize(db_connection_proc:)
+		def initialize(db_migrations_dir:, db_connection_proc:)
+			@db_migrations_dir = db_migrations_dir
 			@db_connection_proc = db_connection_proc
 		end
 
@@ -26,6 +27,7 @@ module SequelMigrationsToys
 						.each do |template_name|
 							require_relative "template/#{template_name.downcase}"
 							expand Template.const_get(template_name, false),
+								db_migrations_dir: template.db_migrations_dir,
 								db_connection_proc: template.db_connection_proc
 						end
 				end

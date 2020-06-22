@@ -13,8 +13,8 @@ module SequelMigrationsToys
 				module CommonMigrationsCreateCode
 					private
 
-					def create_migration_file(name, content = nil)
-						file = migration_file_class.new(name: name, content: content)
+					def create_migration_file(db_migrations_dir, name, content = nil)
+						file = migration_file_class(db_migrations_dir).new(name: name, content: content)
 
 						file.generate
 					end

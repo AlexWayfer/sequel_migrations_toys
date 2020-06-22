@@ -5,14 +5,14 @@ module SequelMigrationsToys
 		class Create
 			## Define toys for Sequel migrations creation
 			class Regular < Create::Base
-				on_expand do
+				on_expand do |template|
 					tool :regular do
 						desc 'Create regular migration'
 
 						required_arg :name
 
-						def run
-							create_migration_file name
+						to_run do
+							create_migration_file template.db_migrations_dir, name
 						end
 					end
 				end

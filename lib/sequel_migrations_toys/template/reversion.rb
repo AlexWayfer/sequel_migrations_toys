@@ -4,14 +4,14 @@ module SequelMigrationsToys
 	class Template
 		## Define toys for migrations reversion
 		class Reversion < Base
-			on_expand do
+			on_expand do |template|
 				tool :reversion do
 					desc 'Change version of migration to latest'
 
 					required_arg :filename
 
-					def run
-						file = migration_file_class.find filename
+					to_run do
+						file = migration_file_class(template.db_migrations_dir).find filename
 						file.reversion
 					end
 				end

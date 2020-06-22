@@ -4,7 +4,7 @@ module SequelMigrationsToys
 	class Template
 		## Define toys for rollback migrations
 		class Rollback < Base
-			on_expand do
+			on_expand do |template|
 				tool :rollback do
 					include :exec, exit_on_nonzero_status: true
 
@@ -12,8 +12,8 @@ module SequelMigrationsToys
 
 					optional_arg :step, accept: Integer, default: 1
 
-					def run
-						files = migration_file_class.find '*', only_one: false
+					to_run do
+						files = migration_file_class(template.db_migrations_dir).find '*', only_one: false
 						file = files[-1 - step.abs]
 
 						target = file ? file.version : 0

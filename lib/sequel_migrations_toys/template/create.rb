@@ -14,6 +14,7 @@ module SequelMigrationsToys
 
 					require_relative 'create/regular'
 					expand Create::Regular,
+						db_migrations_dir: template.db_migrations_dir,
 						db_connection_proc: template.db_connection_proc
 				end
 

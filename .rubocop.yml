@@ -7,6 +7,8 @@ Layout/IndentationStyle:
   IndentationWidth: 2
 Layout/IndentationWidth:
   Width: 1
+Layout/LineLength:
+  Max: 100
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Layout/ArgumentAlignment:
