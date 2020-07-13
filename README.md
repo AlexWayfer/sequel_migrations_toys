@@ -34,10 +34,13 @@ gem install sequel_migrations_toys
 
 ```ruby
 require 'sequel_migrations_toys'
-expand SequelMigrationsToys::Template, db_connection_proc: (proc do
-  require "#{context_directory}/config/config"
-  MyProject::Application.db_connection
-end)
+expand SequelMigrationsToys::Template,
+  # optional, has such default
+  db_migrations_dir: 'db/migrations',
+  db_connection_proc: (proc do
+    require "#{context_directory}/config/config"
+    MyProject::Application.db_connection
+  end)
 
 # `database` namespace created
 # aliases are optional, but handful
