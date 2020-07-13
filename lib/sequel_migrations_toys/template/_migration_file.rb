@@ -37,15 +37,18 @@ module SequelMigrationsToys
 				db_connection[:schema_migrations].select_map(:filename)
 			end
 
-			def find(query, only_one: true, enabled: true, disabled: true)
-				filenames = Dir["#{db_migrations_dir}/*#{query}*"]
-				filenames.select! { |filename| File.file? filename }
+			def find_all(query, enabled: true, disabled: true)
+				filenames = Dir["#{db_migrations_dir}/*#{query}*"].select { |filename| File.file? filename }
 				files = filenames.map { |filename| new filename: filename }.sort!
 				files.reject!(&:disabled) unless disabled
 				files.select!(&:disabled) unless enabled
+				files
+			end
 
-				return files unless only_one
-				return files.first if files.size < 2
+			def find_one(query, **options)
+				all = find_all query, **options
+
+				return all.first if all.size < 2
 
 				raise 'More than one file mathes the query'
 			end
@@ -55,7 +58,7 @@ module SequelMigrationsToys
 			end
 
 			memoize def existing
-				find '*', only_one: false, disabled: false
+				find_all '*', disabled: false
 			end
 
 			memoize def applied_not_existing

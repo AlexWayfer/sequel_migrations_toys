@@ -53,7 +53,7 @@ module SequelMigrationsToys
 					end
 
 					def find_target_file_version
-						file = migration_file_class(template.db_migrations_dir).find target, disabled: false
+						file = migration_file_class(template.db_migrations_dir).find_one target, disabled: false
 
 						abort 'Migration with this version not found' if file.nil?
 

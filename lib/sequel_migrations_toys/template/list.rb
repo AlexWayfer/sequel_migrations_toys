@@ -11,7 +11,7 @@ module SequelMigrationsToys
 					to_run do
 						files =
 							migration_file_class(template.db_migrations_dir, template.db_connection)
-								.find '*', only_one: false
+								.find_all '*'
 						files.each(&:print)
 					end
 				end

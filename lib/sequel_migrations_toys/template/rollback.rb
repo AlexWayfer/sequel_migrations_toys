@@ -13,7 +13,7 @@ module SequelMigrationsToys
 					optional_arg :step, accept: Integer, default: 1
 
 					to_run do
-						files = migration_file_class(template.db_migrations_dir).find '*', only_one: false
+						files = migration_file_class(template.db_migrations_dir).find_all '*'
 						file = files[-1 - step.abs]
 
 						target = file ? file.version : 0
