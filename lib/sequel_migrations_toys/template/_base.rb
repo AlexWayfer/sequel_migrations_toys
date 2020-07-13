@@ -18,7 +18,7 @@ module SequelMigrationsToys
 
 				@db_connection = db_connection_proc.call
 
-				@db_connection.loggers << Logger.new($stdout)
+				# @db_connection.loggers << Logger.new($stdout)
 
 				@db_connection
 			end
