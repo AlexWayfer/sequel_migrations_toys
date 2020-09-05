@@ -17,6 +17,8 @@ module SequelMigrationsToys
 					SEQUEL_EXTENSIONS = %i[migration inflector].freeze
 
 					to_run do
+						@template = template
+
 						## PSQL tools or analog are required
 						exec_tool 'database:dump' unless ENV['SKIP_DB_DUMP']
 
@@ -25,7 +27,7 @@ module SequelMigrationsToys
 						SEQUEL_EXTENSIONS.each { |extension| Sequel.extension extension }
 
 						Sequel::Migrator.run(
-							template.db_connection, template.db_migrations_dir, options
+							@template.db_connection, @template.db_migrations_dir, options
 						)
 					end
 
@@ -53,7 +55,8 @@ module SequelMigrationsToys
 					end
 
 					def find_target_file_version
-						file = migration_file_class(template.db_migrations_dir).find_one target, disabled: false
+						file =
+							migration_file_class(@template.db_migrations_dir).find_one target, disabled: false
 
 						abort 'Migration with this version not found' if file.nil?
 

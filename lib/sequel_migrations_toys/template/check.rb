@@ -9,8 +9,10 @@ module SequelMigrationsToys
 					desc 'Check applied migrations'
 
 					to_run do
+						@template = template
+
 						migration_file_class = migration_file_class(
-							template.db_migrations_dir, template.db_connection
+							@template.db_migrations_dir, @template.db_connection
 						)
 
 						if migration_file_class.applied_not_existing.any?
