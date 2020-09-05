@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+## 0.2.1 (2020-09-05)
+
+*   Fix `run` tool (`template` variable).
+
 ## 0.2.0 (2020-08-23)
 
 *   Update `toys`.
