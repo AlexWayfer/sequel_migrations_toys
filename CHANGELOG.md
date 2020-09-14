@@ -2,6 +2,10 @@
 
 ## master (unreleased)
 
+## 0.2.2 (2020-09-14)
+
+*   Add `sequel` as a runtime dependency.
+
 ## 0.2.1 (2020-09-05)
 
 *   Fix `run` tool (`template` variable).
