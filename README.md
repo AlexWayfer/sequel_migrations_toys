@@ -38,7 +38,7 @@ expand SequelMigrationsToys::Template,
   # optional, has such default
   db_migrations_dir: 'db/migrations',
   db_connection_proc: (proc do
-    require "#{context_directory}/config/main"
+    require "#{context_directory}/application"
     MyProject::Application.db_connection
   end)
 
