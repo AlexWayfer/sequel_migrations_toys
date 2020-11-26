@@ -14,7 +14,7 @@ module SequelMigrationsToys
 					flag :current, '-c', '--current=VERSION', default: 'current'
 					flag :force, '-f', '--force', desc: 'Allow missing migration files'
 
-					SEQUEL_EXTENSIONS = %i[migration inflector].freeze
+					self::SEQUEL_EXTENSIONS = %i[migration inflector].freeze
 
 					to_run do
 						@template = template
@@ -24,7 +24,7 @@ module SequelMigrationsToys
 
 						## https://github.com/jeremyevans/sequel/issues/1182#issuecomment-217696754
 						require 'sequel'
-						SEQUEL_EXTENSIONS.each { |extension| Sequel.extension extension }
+						self.class::SEQUEL_EXTENSIONS.each { |extension| Sequel.extension extension }
 
 						Sequel::Migrator.run(
 							@template.db_connection, @template.db_migrations_dir, options
