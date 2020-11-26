@@ -9,7 +9,7 @@ module SequelMigrationsToys
 
 		attr_reader :db_migrations_dir, :db_connection_proc
 
-		def initialize(db_migrations_dir: 'db/migrations', db_connection_proc:)
+		def initialize(db_connection_proc:, db_migrations_dir: 'db/migrations')
 			@db_migrations_dir = db_migrations_dir
 			@db_connection_proc = db_connection_proc
 		end
