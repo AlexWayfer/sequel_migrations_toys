@@ -12,6 +12,7 @@ module SequelMigrationsToys
 
 					flag :target, '-t', '--target=VERSION'
 					flag :current, '-c', '--current=VERSION', default: 'current'
+					flag :dump, '--[no-]dump', default: true
 					flag :force, '-f', '--force', desc: 'Allow missing migration files'
 
 					self::SEQUEL_EXTENSIONS = %i[migration inflector].freeze
@@ -20,7 +21,7 @@ module SequelMigrationsToys
 						@template = template
 
 						## PSQL tools or analog are required
-						exec_tool 'database:dump' unless ENV['SKIP_DB_DUMP']
+						exec_tool 'database:dump' if dump
 
 						## https://github.com/jeremyevans/sequel/issues/1182#issuecomment-217696754
 						require 'sequel'
