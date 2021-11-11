@@ -1,6 +1,11 @@
 # Changelog
 
-## master (unreleased)
+## Unreleased
+
+## 0.2.4 (2021-11-12)
+
+*   Require necessary `fileutils`.
+*   Update development dependencies.
 
 ## 0.2.3 (2021-08-09)
 
