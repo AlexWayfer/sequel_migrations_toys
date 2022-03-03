@@ -105,7 +105,7 @@ module SequelMigrationsToys
 			@disabled =
 				case value
 				when String
-					[DISABLING_EXT, DISABLING_EXT[1..-1]].include? value
+					[DISABLING_EXT, DISABLING_EXT[1..]].include? value
 				else
 					value
 				end
