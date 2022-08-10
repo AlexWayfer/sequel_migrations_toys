@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.0 (2022-08-10)
+
+*   Add Ruby 3.1 support.
+*   Drop Ruby 2.5 support.
+*   Update dependencies.
+*   Resolve new RuboCop offenses.
+
 ## 0.2.4 (2021-11-12)
 
 *   Require necessary `fileutils`.
