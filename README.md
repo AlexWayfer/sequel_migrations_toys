@@ -5,8 +5,8 @@
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/AlexWayfer/sequel_migrations_toys.svg?style=flat-square)](https://codeclimate.com/github/AlexWayfer/sequel_migrations_toys)
 [![Depfu](https://img.shields.io/depfu/AlexWayfer/sequel_migrations_toys?style=flat-square)](https://depfu.com/repos/github/AlexWayfer/sequel_migrations_toys)
 [![Inline docs](https://inch-ci.org/github/AlexWayfer/sequel_migrations_toys.svg?branch=main)](https://inch-ci.org/github/AlexWayfer/sequel_migrations_toys)
-[![license](https://img.shields.io/github/license/AlexWayfer/sequel_migrations_toys.svg?style=flat-square)](https://github.com/AlexWayfer/sequel_migrations_toys/blob/main/LICENSE.txt)
 [![Gem](https://img.shields.io/gem/v/sequel_migrations_toys.svg?style=flat-square)](https://rubygems.org/gems/sequel_migrations_toys)
+[![License](https://img.shields.io/github/license/AlexWayfer/sequel_migrations_toys.svg?style=flat-square)](LICENSE.txt)
 
 Toys template for [Sequel](https://sequel.jeremyevans.net/) migrations.
 
