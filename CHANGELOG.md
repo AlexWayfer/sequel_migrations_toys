@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.4.0 (2022-10-22)
+
+*   Update `toys-core`.
+*   Update development dependencies.
+*   Rename `master` git branch to `main`.
+*   Update License badge.
+*   Improve CI.
+
 ## 0.3.0 (2022-08-10)
 
 *   Add Ruby 3.1 support.
