@@ -15,6 +15,8 @@ module SequelMigrationsToys
 						files.each(&:print)
 					end
 				end
+
+				alias_tool :status, :list
 			end
 		end
 	end
