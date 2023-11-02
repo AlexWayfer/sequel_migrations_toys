@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.5.0 (2023-11-02)
+
+*   Drop Ruby 2.6 support.
+*   Add Ruby 3.2 for CI.
+*   Add `migrations status` as alias for `migrations list`.
+*   Update `toys` dependencies.
+*   Move development dependencies from `gemspec` into `Gemfile`.
+*   Update development dependencies.
+
 ## 0.4.0 (2022-10-22)
 
 *   Update `toys-core`.
