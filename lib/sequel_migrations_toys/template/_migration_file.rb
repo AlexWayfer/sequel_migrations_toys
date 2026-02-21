@@ -46,8 +46,8 @@ module SequelMigrationsToys
 				files
 			end
 
-			def find_one(query, **options)
-				all = find_all query, **options
+			def find_one(query, **)
+				all = find_all(query, **)
 
 				return all.first if all.size < 2
 
