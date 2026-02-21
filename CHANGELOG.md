@@ -33,7 +33,7 @@
 
 ## 0.2.3 (2021-08-09)
 
-* Update dependencies.
+*   Update dependencies.
 
 ## 0.2.2 (2020-09-14)
 
