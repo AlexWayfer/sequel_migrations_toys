@@ -1,6 +1,6 @@
 # Sequel Migrations Toys
 
-[![Cirrus CI - Base Branch Build Status](https://img.shields.io/cirrus/github/AlexWayfer/sequel_migrations_toys?style=flat-square)](https://cirrus-ci.com/github/AlexWayfer/sequel_migrations_toys)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/AlexWayfer/sequel_migrations_toys/ci.yml?style=flat-square)](https://github.com/AlexWayfer/sequel_migrations_toys/actions)
 [![Codecov branch](https://img.shields.io/codecov/c/github/AlexWayfer/sequel_migrations_toys/main.svg?style=flat-square)](https://codecov.io/gh/AlexWayfer/sequel_migrations_toys)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/AlexWayfer/sequel_migrations_toys.svg?style=flat-square)](https://codeclimate.com/github/AlexWayfer/sequel_migrations_toys)
 [![Depfu](https://img.shields.io/depfu/AlexWayfer/sequel_migrations_toys?style=flat-square)](https://depfu.com/repos/github/AlexWayfer/sequel_migrations_toys)
